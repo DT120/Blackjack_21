@@ -15,10 +15,13 @@ class Card():
 
 class Deck():
     def __init__(self):
+      # Create a list of card objects for each suit and number value combination
       self.cards = [Card(suit, number, value) for suit in ["♥", "♠️", "♦️", "♣️"] for number, value in number_values]
     def shuffle(self):
+       # Shuffle the cards in the deck
         random.shuffle(self.cards)
     def draw(self):
+      # Draw a card from the deck
         return self.cards.pop()
 
 class Player():
@@ -27,6 +30,7 @@ class Player():
         self.hand = []
 
     def score(self):
+      # Calculate the total value of cards in the player's hand
       score = 0 + sum(card.value for card in self.hand)
       return score
 
@@ -52,6 +56,7 @@ class Blackjack():
             if self.player.score() <=  11 and ace_card:
               choice = input("You drew an Ace! Would you like to count it as 1 or 11.")
               if choice == "11":
+                # Update the value of ace card to 11
                 ace_card.value = 11
                 print("You have {value} | {hand}".format(hand = self.player.hand, value = sum(card.value for card in self.player.hand)))
               if choice not in ["1", "11"]:
@@ -80,6 +85,7 @@ class Blackjack():
         ace_card = next((card for card in self.dealer.hand if card.number == "Ace"), None)
 
         if self.dealer.score() <= 11 and ace_card:
+          # Update the value of ace card to 11
             ace_card.value = 11
         
         while self.dealer.score() < 17:
